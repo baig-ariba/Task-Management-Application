@@ -2,7 +2,7 @@ const addButton = document.getElementById('addTask');
 const tName = document.getElementById('taskName');
 const tCategory = document.getElementById('category');
 const tDeadline = document.getElementById('deadline');
-const tStatus = document.getElementById('status');
+let tStatus = document.getElementById('status');
 const taskTable = document.getElementById('taskTable');
 
 let taskArray = [];
@@ -20,7 +20,7 @@ addButton.addEventListener("click", function () {
         return;
     }
 
-    updateStatus();
+    task.status = updateStatus();
 
     for (let i = 0; i < taskArray.length; i++) {
         if (task.taskName.toLowerCase().trim() === taskArray[i].taskName.toLowerCase().trim()) {
@@ -54,14 +54,12 @@ function updateStatus(){
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const deadlineDate = new Date(tDeadline.value);
-    console.log(today);
-    console.log(deadlineDate);
-    
-    if (tDeadline){
+
+    if (!tDeadline){
         return;
     }
     
     if(deadlineDate < today ){
-        tStatus = "Overdue";
+        return "Overdue";
     }
 }
