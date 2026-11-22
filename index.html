@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>Task Management App</title>
+  </head>
+  <body>
+    <div class="taskList">
+        <h1>Task List</h1>
+        <div class="task">
+            <label for="taskName">Task Name: </label>
+            <input type="text" id="taskName" placeholder="Task Name" />
+            <label for="category">Task Category: </label>
+            <input type="text" id="category" placeholder="Category" />
+            <label for="deadline">Task Deadline: </label>
+            <input type="date" id="deadline" placeholder="Deadline" />
+            <label for="status">Task Status: </label>
+            <select id="status" name="Status" required>
+            <option value="" disabled selected>Select a Status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Overdue">Overdue</option>
+            <option value="Completed">Completed</option>
+            </select>
+        </div>
+        <button id="addTask">Add a Task</button>
+        <div class="taskTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Category</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTable">
+                </tbody>
+            </table>
+          </div>
+    </div>
+  </body>
+</html>
