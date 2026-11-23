@@ -1,15 +1,23 @@
 //const prompt = require("prompt-sync")();
 
 const addButton = document.getElementById('addTask');
-const updateButton = document.getElementById('updateStatus');
+
 const tName = document.getElementById('taskName');
 const tCategory = document.getElementById('category');
 const tDeadline = document.getElementById('deadline');
 const taskTable = document.getElementById('taskTable');
 let tStatus = document.getElementById('status');
 
+const updateButton = document.getElementById('updateStatus');
+
+const filterCategory = document.getElementById('statusCFilter');
+const filterStatus = document.getElementById('statusSFilter');
+const filterTaskTable = document.getElementById('filterTaskTable');
+
 let taskCounter = 1;
 let taskArray = [];
+let filterCounter = 1;
+let filteredArray = [];
 
 addButton.addEventListener("click", function () {
     const task = {
@@ -17,7 +25,7 @@ addButton.addEventListener("click", function () {
         taskName: tName.value,
         category: tCategory.value,
         deadline: tDeadline.value,
-        status: tStatus.value || "in Progress",
+        status: tStatus.value || "In Progress",
     };
 
     if (!task.taskName) {
@@ -55,6 +63,22 @@ addButton.addEventListener("click", function () {
 
 function addTask(task) {
     taskArray.push(task);
+}
+
+function updateStatus(stat){
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deadlineDate = new Date(tDeadline.value);
+
+    if (!tDeadline.value){
+        return stat;
+    }
+    
+    if(deadlineDate < today && stat !== "Completed"){
+        stat = "Overdue";
+    }
+
+    return stat;
 }
 
 updateButton.addEventListener("click", function () {
@@ -99,18 +123,53 @@ updateButton.addEventListener("click", function () {
     }
 })
 
-function updateStatus(stat){
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const deadlineDate = new Date(tDeadline.value);
-
-    if (!tDeadline.value){
-        return stat;
+filterCategory.addEventListener("change", function(){
+    if(taskArray.length === 0){
+        alert("There is no task to filter")
+        return;
     }
     
-    if(deadlineDate < today && stat !== "Completed"){
-        stat = "Overdue";
-    }
+    filterTaskTable.innerHTML = "";
+    filterCounter = 1;
+    
+    const catTasks = taskArray.filter(t => t.category === filterCategory.value)
+    for(t of catTasks){
+        const newRow = document.createElement("tr");
+        const filterDetails = [filterCounter, t.taskName, t.category, t.deadline, t.status];
+        console.log(filterCounter);
 
-    return stat;
-}
+        for (const d of filterDetails) {
+            const cell = document.createElement("td");
+            cell.textContent = d;
+            newRow.appendChild(cell);
+        }
+        
+        filterTaskTable.appendChild(newRow);
+        filterCounter++;
+    }
+})
+
+filterStatus.addEventListener("change", function(){
+    if(taskArray.length === 0){
+        alert("There is no task to filter")
+        return;
+    }
+    
+    filterTaskTable.innerHTML = "";
+    filterCounter = 1;
+    
+    const catTasks = taskArray.filter(t => t.status === filterStatus.value)
+    for(t of catTasks){
+        const newRow = document.createElement("tr");
+        const filterDetails = [filterCounter, t.taskName, t.category, t.deadline, t.status];
+        
+        for (const d of filterDetails) {
+            const cell = document.createElement("td");
+            cell.textContent = d;
+            newRow.appendChild(cell);
+        }
+        
+        filterTaskTable.appendChild(newRow);
+        filterCounter++;
+    }
+})
