@@ -21,8 +21,8 @@
             <select id="status" name="Status" required>
             <option value="" disabled selected>Select a Status</option>
             <option value="In Progress">In Progress</option>
-            <option value="Overdue">Overdue</option>
             <option value="Completed">Completed</option>
+            <option value="Overdue">Overdue</option>
             </select>
         </div>
         <button id="addTask">Add a Task</button>
@@ -30,6 +30,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Task Name</th>
                         <th>Category</th>
                         <th>Deadline</th>
@@ -38,8 +39,9 @@
                 </thead>
                 <tbody id="taskTable">
                 </tbody>
-            </table>
-          </div>
+            </table>    
+        </div>
+        <button id="updateStatus">Update Status</button>
     </div>
   </body>
 </html>
